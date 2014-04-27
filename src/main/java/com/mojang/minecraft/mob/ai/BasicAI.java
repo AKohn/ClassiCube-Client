@@ -198,7 +198,7 @@ public class BasicAI extends AI {
         if (neighbourEntities != null && neighbourEntities.size() > 0) {
             for (Entity entity : neighbourEntities) {
                 if (entity.isPushable()) {
-                    entity.push(mob);
+                    entity.noPhysics = true;
                 }
             }
         }

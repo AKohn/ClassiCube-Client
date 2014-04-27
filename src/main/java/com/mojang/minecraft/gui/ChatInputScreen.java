@@ -112,6 +112,31 @@ public class ChatInputScreen extends GuiScreen {
                     minecraft.hud.addChat("&eDebug: &a" + (!minecraft.settings.showDebug ? "On" : "Off") + " -> "
                             + (minecraft.settings.showDebug ? "On" : "Off"));
                 }
+                else if (message.startsWith("/client spam")) 
+                {
+                        try
+                        {
+                            String number = message.split(" ")[2];
+                            String[] spacesplit = message.split(" ");
+                            String msg = "";
+                            for(int i = 3; i < spacesplit.length; i++)
+                            {
+                                msg += spacesplit[i];
+                            }
+                            for(int times = Integer.parseInt(number);times>0;times--)
+                            {
+                                minecraft.networkManager.netHandler.send(PacketType.CHAT_MESSAGE, -1, msg);
+                            }
+                        }
+                        catch(java.lang.NumberFormatException e)
+                        {
+                            minecraft.hud.addChat("&eNot a valid number");
+                        }
+                        catch(java.lang.ArrayIndexOutOfBoundsException e)
+                        {
+                            minecraft.hud.addChat("&eInvalid command syntax");
+                        }
+                }
                 else if (message.startsWith("/client distance")) 
                 {   
                     try
@@ -122,7 +147,7 @@ public class ChatInputScreen extends GuiScreen {
                     }
                     catch(java.lang.NumberFormatException e)
                     {
-                        minecraft.hud.addChat("&eNot a valid distance");
+                        minecraft.hud.addChat("&eNot a valid number");
                     }
                 }
                 else if (message.equalsIgnoreCase("/client gui")) {
@@ -149,6 +174,7 @@ public class ChatInputScreen extends GuiScreen {
                 } else if (message.equalsIgnoreCase("/client help")) {
                     minecraft.hud.addChat("&a/Client GUI &e- Toggles the GUI");
                     minecraft.hud.addChat("&a/Client Distance <value> &e- Sets reach distance to <value>");
+                    minecraft.hud.addChat("&a/Client Spam <number> <message> &e- Spams <message> <number> times");
                     minecraft.hud.addChat("&a/Client TP &e- Toggles ignoring position/orientation packets");
                     minecraft.hud.addChat("&a/Client Debug &e- Toggles the showing of the debug information");
                     minecraft.hud.addChat("&a/Client Hacks &e- Toggles being able to use hacks");
@@ -173,6 +199,7 @@ public class ChatInputScreen extends GuiScreen {
             } else if (message.length() > 0) {
                 if ((message = message.trim()).length() > 0) {
                     minecraft.networkManager.netHandler.send(PacketType.CHAT_MESSAGE, -1, message);
+                    
                 }
             }
             history.add(message);
