@@ -91,6 +91,7 @@ public final class GameSettings {
     public boolean viewBobbing = true;
     public int viewDistance;
     public boolean TPDisabled = false;
+    public float clicksPerSecond = 4F;
 
     // 0 = off, higher values mean nth-powers-of-2 (e.g. 1 => 2x, 2 => 4x, 3 => 8x, 4 => 16x)
     public int anisotropy;

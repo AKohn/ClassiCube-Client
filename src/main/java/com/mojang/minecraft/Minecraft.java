@@ -555,7 +555,7 @@ public final class Minecraft implements Runnable {
             if (button == MB_LEFT) {
                 // on left-click: delete a block (if allowed)
                 if ((block != Block.BEDROCK || player.userType >= 100)
-                        && !DisallowedBreakingBlocks.contains(block)) {
+                        /*&& !DisallowedBreakingBlocks.contains(block)*/) {
                     gamemode.hitBlock(x, y, z);
                 }
                 return;
@@ -563,7 +563,7 @@ public final class Minecraft implements Runnable {
 
             // on right-click: build a block
             int blockID = player.inventory.getSelected();
-            if (blockID <= 0 || disallowedPlacementBlocks.contains(Block.blocks[blockID])) {
+            if (blockID <= 0 /*|| disallowedPlacementBlocks.contains(Block.blocks[blockID])*/) {
                 return; // if air or not allowed, return
             }
             AABB aabb = Block.blocks[blockID].getCollisionBox(x, y, z);
@@ -2835,12 +2835,12 @@ public final class Minecraft implements Runnable {
                 }
             }
             if (currentScreen == null) {
-                if (Mouse.isButtonDown(MB_LEFT) && ticks - lastClick >= timer.tps / 4F && hasMouse) {
+                if (Mouse.isButtonDown(MB_LEFT) && ticks - lastClick >= timer.tps / settings.clicksPerSecond && hasMouse) {
                     onMouseClick(MB_LEFT);
                     lastClick = ticks;
                 }
 
-                if (Mouse.isButtonDown(MB_RIGHT) && ticks - lastClick >= timer.tps / 4F && hasMouse) {
+                if (Mouse.isButtonDown(MB_RIGHT) && ticks - lastClick >= timer.tps / settings.clicksPerSecond && hasMouse) {
                     onMouseClick(MB_RIGHT);
                     lastClick = ticks;
                 }
