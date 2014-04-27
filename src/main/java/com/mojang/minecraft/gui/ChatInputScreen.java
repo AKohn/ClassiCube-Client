@@ -121,7 +121,7 @@ public class ChatInputScreen extends GuiScreen {
                             String msg = "";
                             for(int i = 3; i < spacesplit.length; i++)
                             {
-                                msg += spacesplit[i];
+                                msg += spacesplit[i]+" ";
                             }
                             for(int times = Integer.parseInt(number);times>0;times--)
                             {
