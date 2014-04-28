@@ -204,6 +204,7 @@ public class ChatInputScreen extends GuiScreen {
                     minecraft.hud.addChat("&eCurrent client command settings:");
                     minecraft.hud.addChat("  &eReach Distance: &a" + (minecraft.gamemode.reachDistance));
                     minecraft.hud.addChat("  &eTP: &a" + (minecraft.settings.TPDisabled ? "Enabled" : "Disabled"));
+                    minecraft.hud.addChat("  &eCPS: &a" + (minecraft.settings.clicksPerSecond));
                     minecraft.hud.addChat("  &eGUI: &a" + (minecraft.canRenderGUI ? "On" : "Off"));
                     minecraft.hud.addChat("  &eDebug: &a" + (minecraft.settings.showDebug ? "On" : "Off"));
                     minecraft.hud.addChat("  &eHacks: &a" + (minecraft.settings.HacksEnabled ? "Enabled" : "Disabled"));
