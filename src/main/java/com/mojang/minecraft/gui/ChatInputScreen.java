@@ -9,6 +9,7 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Vector;
+import java.util.Random;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -17,6 +18,7 @@ import com.mojang.minecraft.ChatClickData;
 import com.mojang.minecraft.ChatClickData.LinkData;
 import com.mojang.util.LogUtil;
 import com.mojang.minecraft.net.PacketType;
+import java.util.Random;
 
 public class ChatInputScreen extends GuiScreen {
 
@@ -167,6 +169,31 @@ public class ChatInputScreen extends GuiScreen {
                         minecraft.hud.addChat("&eInvalid syntax");
                     }
                 }
+                else if (message.startsWith("/client blockbreak")) 
+                {
+                    try
+                    {
+                        int number = Integer.parseInt(message.split(" ")[2]);
+                        for(int i=0;i<number;i++)
+                        {
+                            Random x1 = new Random();
+                            Random y1 = new Random();
+                            Random z1 = new Random();
+                            int  x = x1.nextInt(minecraft.level.width) + 1;
+                            int  y = y1.nextInt(minecraft.level.height) + 1;
+                            int  z = z1.nextInt(minecraft.level.length) + 1;
+                            minecraft.gamemode.hitBlock(x, y, z);
+                        }
+                    }
+                    catch(java.lang.NumberFormatException e)
+                    {
+                        minecraft.hud.addChat("Not a valid number");
+                    }
+                    catch(java.lang.IndexOutOfBoundsException e)
+                    {
+                        minecraft.hud.addChat("Invalid syntax");
+                    }
+                }
                 else if (message.equalsIgnoreCase("/client gui")) {
                     minecraft.canRenderGUI = !minecraft.canRenderGUI;
                     minecraft.hud.addChat("&eGUI: &a" + (!minecraft.canRenderGUI ? "On" : "Off") + " -> "
@@ -194,6 +221,7 @@ public class ChatInputScreen extends GuiScreen {
                     minecraft.hud.addChat("&a/Client Spam <number> <message> &e- Spams <message> <number> times");
                     minecraft.hud.addChat("&a/Client TP &e- Toggles ignoring position/orientation packets");
                     minecraft.hud.addChat("&a/Client CPS <number> &e- Sets allowed number of clicks per second");
+                    minecraft.hud.addChat("&a/Client BlockBreak <number> &e- Breaks <number> random blocks");
                     minecraft.hud.addChat("&a/Client Debug &e- Toggles the showing of the debug information");
                     minecraft.hud.addChat("&a/Client Hacks &e- Toggles being able to use hacks");
                     minecraft.hud.addChat("&a/Client SpeedHack &e- Switches between normal and advanced speedhack");
